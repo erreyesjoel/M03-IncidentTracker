@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User  # Importem el model d'usuaris de Django
 from .models import Incident
@@ -40,7 +40,9 @@ def actualitzar_correu(request):
     return render(request, 'actualitzar_correu.html', {'missatge': missatge})
 
 @login_required
-def detall_incident(request, incident_id):
-    # VULNERABILITAT: Només filtrem per ID, no per propietari!
-    incident = Incident.objects.get(id=incident_id)
+# Canvia 'id' per 'incident_id' per coincidir amb la teva URL
+def detall_incident(request, incident_id):  
+    # I aquí també l'has de fer servir:
+    incident = get_object_or_404(Incident, id=incident_id, propietari=request.user)
+    
     return render(request, 'detall_incident.html', {'incident': incident})
