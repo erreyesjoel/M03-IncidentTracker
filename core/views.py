@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User  # Importem el model d'usuaris de Django
+from .models import Incident
 
 @login_required
 def perfil_usuari(request):
@@ -37,3 +38,9 @@ def actualitzar_correu(request):
         missatge = "Correu actualitzat correctament amb seguretat ORM!"
         
     return render(request, 'actualitzar_correu.html', {'missatge': missatge})
+
+@login_required
+def detall_incident(request, incident_id):
+    # VULNERABILITAT: Només filtrem per ID, no per propietari!
+    incident = Incident.objects.get(id=incident_id)
+    return render(request, 'detall_incident.html', {'incident': incident})
