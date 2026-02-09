@@ -20,3 +20,19 @@ def cerca_incidents(request):
         incidents = cursor.fetchall()
     
     return render(request, 'cerca.html', {'incidents': incidents, 'query': query})
+
+@login_required
+def actualitzar_correu(request):
+    missatge = ""
+    if request.method == 'POST':
+        nou_email = request.POST.get('email', '')
+        user_id = request.user.id
+        
+        cursor = connection.cursor()
+        # LÍNIA CRÍTICA: Vulnerable a SQL Injection
+        sql = f"UPDATE auth_user SET email = '{nou_email}' WHERE id = {user_id}"
+        
+        cursor.execute(sql)
+        missatge = "Correu actualitzat correctament!"
+        
+    return render(request, 'actualitzar_correu.html', {'missatge': missatge})

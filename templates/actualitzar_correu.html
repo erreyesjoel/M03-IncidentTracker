@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Actualitzar Perfil</title>
+</head>
+<body>
+    <h2>Configuració de l'usuari</h2>
+    <p>Usuari actual: <strong>{{ request.user.username }}</strong></p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <label>Nou Correu Electrònic:</label><br>
+        <input type="text" name="email" placeholder="correu@exemple.com" style="width: 450px;">
+        <button type="submit">Actualitzar</button>
+    </form>
+
+    {% if missatge %}
+        <p style="color: green;">{{ missatge }}</p>
+    {% endif %}
+
+    <hr>
+    <a href="/cerca/">Tornar al cercador</a>
+</body>
+</html>
