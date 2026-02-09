@@ -16,11 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from core.views import perfil_usuari
+from core.views import perfil_usuari, cerca_incidents
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Això activa rutes com: /accounts/login/ i /accounts/logout/
     path('accounts/', include('django.contrib.auth.urls')),
     path('perfil/', perfil_usuari, name='perfil'),
+    path('cerca/', cerca_incidents, name='cerca'),
 ]
