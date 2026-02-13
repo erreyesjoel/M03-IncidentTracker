@@ -1,4 +1,5 @@
 <h1>Detall de l'Incident</h1>
+<h1>{{ incident.titol | safe }}</h1>
 <p><strong>ID:</strong> {{ incident.id }}</p>
 <p><strong>Títol:</strong> {{ incident.titol }}</p>
 <p><strong>Propietari:</strong> {{ incident.propietari.username }}</p>
