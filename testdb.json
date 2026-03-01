@@ -1,0 +1,38 @@
+[
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$rldOxi4NXKUlWUQhZUKnjj$S510ZgF5dWtygg034XicJA/CH6p/bBZseqBg13l+rFE=",
+      "is_superuser": true,
+      "username": "admin",
+      "email": "admin@test.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2026-01-28T19:35:18.151Z"
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$fyX5DQsjyeRBYWGmdRpo6m$mA6RoLwoOVpJKvwGN5CpmVQyGuvLETHlbU9jzcS5BFQ=",
+      "is_superuser": false, 
+      "username": "analista1",
+      "email": "analista1@test.com",
+      "is_staff": false, 
+      "is_active": true,
+      "date_joined": "2026-02-09T22:29:56.770Z"
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$qMl9war6ABThFYQEQ8xkLd$gHD4J5onX6Q0vE0bALp98aSne7+M/4Hy58n6JFrRtpA=",
+      "is_superuser": false,
+      "username": "analista2",
+      "email": "analista2@test.com",
+      "is_staff": false, 
+      "is_active": true,
+      "date_joined": "2026-02-09T23:37:53.351Z"
+    }
+  }
+]
