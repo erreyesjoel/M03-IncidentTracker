@@ -1,0 +1,39 @@
+name: Django Security CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install System Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y firefox geckodriver
+
+    - name: Install Python Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # Instal·lem el que digui el teu requirements.txt
+        pip install -r requirements.txt
+
+    - name: Run Security Tests
+      env:
+        # Recorda que has de tenir DJANGO_SECRET_KEY creat als Secrets de GitHub!
+        SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+        MOZ_HEADLESS: 1
+      run: |
+        python manage.py test core.tests_selenium
