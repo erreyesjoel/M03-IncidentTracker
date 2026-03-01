@@ -19,20 +19,18 @@ jobs:
       with:
         python-version: '3.12'
 
-    - name: Install System Dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y firefox geckodriver
-
+    # HEM ELIMINAT EL PAS DE "Install System Dependencies" PERQUÈ JA HI SÓN
+    
     - name: Install Python Dependencies
       run: |
         python -m pip install --upgrade pip
-        # Instal·lem el que digui el teu requirements.txt
-        pip install -r requirements.txt
+        # Instal·lem django, selenium i psycopg2-binary per si de cas
+        pip install django selenium psycopg2-binary
+        # Si tens requirements.txt, descomenta la línia següent:
+        # pip install -r requirements.txt
 
     - name: Run Security Tests
       env:
-        # Recorda que has de tenir DJANGO_SECRET_KEY creat als Secrets de GitHub!
         SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
         MOZ_HEADLESS: 1
       run: |
