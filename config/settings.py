@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os  # AFEGIT per llegir variables d'entorn
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3vx+li*i4uu&gl6jrhf$f8zbe8zf!*1+joa-(o3pu@(^wi6e=l'
+# MODIFICAT: Ara intenta llegir del secret de GitHub, si no el troba usa el teu per defecte
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-3vx+li*i4uu&gl6jrhf$f8zbe8zf!*1+joa-(o3pu@(^wi6e=l')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*'] # MODIFICAT per permetre el runner de GitHub
 
 
 # Application definition
@@ -73,16 +75,25 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'incident_db',
-        'USER': 'postgres',
-        'PASSWORD': 'supersecret',
-        'HOST': 'localhost',
-        'PORT': '5433',
+# MODIFICAT: Si estem en fase de TEST o a GITHUB, usem SQLite (Postgres no hi és al núvol)
+if 'test' in os.sys.argv or os.environ.get('GITHUB_ACTIONS'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'incident_db',
+            'USER': 'postgres',
+            'PASSWORD': 'supersecret',
+            'HOST': 'localhost',
+            'PORT': '5433',
+        }
+    }
 
 
 
