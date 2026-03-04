@@ -12,3 +12,22 @@ __pycache__/
 # Configuració local d'IDE
 .vscode/
 .idea/
+
+# --- Android Studio / Gradle (mobile_app) ---
+
+# Carpetes de compilació (Molt important!)
+mobile_app/build/
+mobile_app/app/build/
+mobile_app/.gradle/
+
+# Configuració personal de l'usuari (conté la ruta del nostre SDK)
+mobile_app/local.properties
+
+# Fitxers de l'IDE i temporals
+mobile_app/.idea/
+mobile_app/*.iml
+mobile_app/.cxx/
+mobile_app/captures/
+
+# Logs i fitxers de sistema
+mobile_app/.DS_Store

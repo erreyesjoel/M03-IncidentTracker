@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User  # Importem el model d'usuaris de Django
-from .models import Incident
+from .models import Incident, SecurityIncident  # Importem el model d'incidents de seguretat
+from django.http import JsonResponse # Importem JsonResponse per retornar respostes JSON
 
 @login_required
 def perfil_usuari(request):
@@ -46,3 +47,16 @@ def detall_incident(request, incident_id):
     incident = get_object_or_404(Incident, id=incident_id, propietari=request.user)
     
     return render(request, 'detall_incident.html', {'incident': incident})
+
+# def per retornar la api_get_incidents demanada
+def api_get_incidents(request):
+    # 1. Obtenir tots els incidents de la base de dades PostgreSQL
+    incidents = SecurityIncident.objects.all()
+    
+    # 2. Convertir els objectes en una llista de diccionaris Python
+    # IMPORTANT: Fem servir els noms de les columnes que hem vist a la DB:
+    # id, title, description, severity
+    data = list(incidents.values('id', 'title', 'description', 'severity'))
+    
+    # 3. Retornar el JsonResponse
+    return JsonResponse(data, safe=False)

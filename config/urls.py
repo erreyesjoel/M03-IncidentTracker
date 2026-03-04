@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from core.views import perfil_usuari, cerca_incidents, actualitzar_correu, detall_incident
+from core.views import perfil_usuari, cerca_incidents, actualitzar_correu, detall_incident, api_get_incidents
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +26,5 @@ urlpatterns = [
     path('cerca/', cerca_incidents, name='cerca'),
     path('actualitzar-correu/', actualitzar_correu, name='actualitzar_correu'),
     path('incident/<int:incident_id>/', detall_incident, name='detall_incident'),
+    path('api/incidents/', api_get_incidents, name='api_get_incidents'),
 ]
